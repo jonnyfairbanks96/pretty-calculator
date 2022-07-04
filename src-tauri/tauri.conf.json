@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "pretty-calculator",
-    "version": "0.1.0"
+    "version": "0.1.1"
   },
   "tauri": {
     "allowlist": {
@@ -51,7 +51,12 @@
       "csp": null
     },
     "updater": {
-      "active": false
+      "active": true,
+      "endpoints": [
+        "https://github.com/jonnyfairbanks96/{{target}}/{{current_version}}"
+      ],
+      "dialog": true,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDREMDNBMDJGRTAxMEY4MTkKUldRWitCRGdMNkFEVGV5aUp5MG5aRk1GSmE4NWlib1hlVTl0SlRNWjQ5ZlNKS084R3dZV0IyNjQK"
     },
     "windows": [
       {

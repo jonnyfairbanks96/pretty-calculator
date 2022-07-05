@@ -38,7 +38,11 @@ export default {
     },
     addOp(op) {
       if (this.previousOp != "" && this.currentOp != "") {
-        this.computeTotal(() => this.operator = op);
+        this.computeTotal(() => {
+          this.previousOp = this.currentOp;
+          this.operator = op;
+          this.currentOp = "";
+        });
       } else {
         this.previousOp += this.currentOp;
         this.currentOp = "";
@@ -49,18 +53,19 @@ export default {
     computeTotal(fun = () => {}) {
       if (this.currentOp != "" && this.previousOp != "" && this.operator != "") {
         invoke(
-          'compute', {
+          'get_total', {
             previousOp: this.previousOp,
             currentOp: this.currentOp,
             operator: this.operator
           }
         ).then((result) => {
-          this.reset();
-          this.previousOp = String(result);
+          this.currentOp = String(result.current);
+          this.previousOp = String(result.previous);
+          this.operator = String(result.operator);
         }).then(fun)
-        .catch((err) => {
-          this.alertErr(err)
-          this.reset();
+          .catch((err) => {
+            this.alertErr(err)
+            this.reset();
         })
       } else {
         this.alertErr("Ooops try again!");
